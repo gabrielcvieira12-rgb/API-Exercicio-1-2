@@ -1,8 +1,9 @@
-// Desafio 02
-// Promoção de supermercado
-// Compras a partir de R$ 150 recebem 5% de desconto, a partir de R$ 300 recebem 10%
-// e a partir de R$ 500 recebem 15%. O sistema determina o valor final e informa
-// quanto o cliente economizou. Nenhum valor inválido deve ser aceito.
+// // Desafio 03
+// // Estacionamento inteligente
+
+// Um estacionamento cobra R$ 8 pela primeira hora e R$ 5 por cada hora adicional iniciada.
+// O proprietário deseja um sistema capaz de calcular o valor devido por um motorista com base no tempo de permanência.
+// Qualquer fração de hora adicional será cobrada como uma hora completa.Por exemplo, um veículo estacionado durante 2 horas e 15 minutos deverá pagar por 3 horas.
 
 const express = require("express");
 const cors = require("cors");
@@ -17,7 +18,7 @@ app.get("/", (req, res) => {
     res.send("API funcionando!");
 });
 
-app.post("/desconto", (req, res) => {
+app.post("/estacionamento", (req, res) => {
     const { valor1 } = req.body ?? {};
 
     if (typeof valor1 !== "number" || !Number.isFinite(valor1) || valor1 <= 0) {
@@ -26,19 +27,14 @@ app.post("/desconto", (req, res) => {
         });
     }
 
-    let percentual = 0;
-    let situacao = "Sem desconto";
+    const prmeiraHora = 8;
+    const HoraExtra = 5;
 
     if (valor1 >= 500) {
         percentual = 15;
         situacao = "15% de Desconto";
     } else if (valor1 >= 300) {
-        percentual = 10;
-        situacao = "10% de Desconto";
-    } else if (valor1 >= 150) {
-        percentual = 5;
-        situacao = "5% de Desconto";
-    }
+ 
 
     const valorFinal = valor1 * (1 - percentual / 100);
     const economia = valor1 - valorFinal;
